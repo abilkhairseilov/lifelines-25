@@ -5,8 +5,19 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+// apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
+//
+// project.ext.envConfigFiles = [
+//         developdebug     : ".env",
+//         developrelease   : ".env",
+//         stagingdebug     : ".env",
+//         stagingrelease   : ".env",
+//         productiondebug  : ".env",
+//         productionrelease: ".env",
+// ]
+
 android {
-    namespace = "com.example.flutter_project"
+    namespace = "com.usi.gaza_aid"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,10 +32,12 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.flutter_project"
+        applicationId = "com.usi.gaza_aid"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        // old value:
+        // minSdk = flutter.minSdkVersion
+        minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

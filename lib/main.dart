@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-
-/// Flutter code sample for [NavigationBar].
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() => runApp(const AIDApp());
+
+void alertContacts() {
+  print("Alerted!");
+}
 
 class AIDApp extends StatelessWidget {
   const AIDApp({super.key});
@@ -25,6 +28,13 @@ class Lifelines extends StatefulWidget {
 
 class MenuState extends State<Lifelines> {
   int currentPageIndex = 0;
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(31.5017, 34.4668);
+
+  void _onMapCreated(GoogleMapController controller){
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,60 +48,37 @@ class MenuState extends State<Lifelines> {
         },
         indicatorColor: Colors.amber,
         selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
+        destinations: <Widget>[
+          const NavigationDestination(
+            icon: Icon(Icons.sos_sharp),
+            label: 'SOS',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications_sharp)),
-            label: 'Notifications',
+            icon: Icon(Icons.map_sharp),
+            label: 'Map',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Badge(
-              label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
+              child: Icon(Icons.newspaper_sharp),
             ),
-            label: 'Messages',
+            label: 'News',
           ),
         ],
       ),
       body: <Widget>[
-        /// Home page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-              child: Text(
-                'Home page',
-                style: theme.textTheme.titleLarge,
-              ),
-            ),
-          ),
-        ),
+        /// 
+        MaterialButton(onPressed: () => alertContacts()),
 
-        /// Notifications page
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 1'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 2'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-            ],
+        MaterialApp(
+          theme: ThemeData(
+            useMaterial3: true,
+            colorSchemeSeed: Colors.green[700],
+          ),
+          home: Scaffold(
+            body: GoogleMap(
+              onMapCreated: _onMapCreated,
+              initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),
+            )
           ),
         ),
 
@@ -108,7 +95,7 @@ class MenuState extends State<Lifelines> {
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius : BorderRadius.circular(8.0),
                   ),
                   child: Text(
                     'Hello',
