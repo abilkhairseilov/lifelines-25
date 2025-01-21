@@ -13,7 +13,9 @@ class AIDApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.light(primary: Colors.amber)),
       home: const Lifelines(),
     );
   }
@@ -32,7 +34,7 @@ class MenuState extends State<Lifelines> {
 
   final LatLng _center = const LatLng(31.5017, 34.4668);
 
-  void _onMapCreated(GoogleMapController controller){
+  void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
@@ -66,8 +68,24 @@ class MenuState extends State<Lifelines> {
         ],
       ),
       body: <Widget>[
-        /// 
-        MaterialButton(onPressed: () => alertContacts()),
+        Center(
+          child: ButtonTheme(
+              minWidth: 300.0,
+              height: 150.0,
+              child: FilledButton(
+                onPressed: () => alertContacts(),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(80)),
+                child: const Text(
+                  "SOS",
+                  style: TextStyle(
+                    fontSize: 48,
+                  ),
+                ),
+              )),
+        ),
 
         MaterialApp(
           theme: ThemeData(
@@ -75,11 +93,10 @@ class MenuState extends State<Lifelines> {
             colorSchemeSeed: Colors.green[700],
           ),
           home: Scaffold(
-            body: GoogleMap(
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),
-            )
-          ),
+              body: GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),
+          )),
         ),
 
         /// Messages page
@@ -95,7 +112,7 @@ class MenuState extends State<Lifelines> {
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
-                    borderRadius : BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Text(
                     'Hello',
