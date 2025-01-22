@@ -13,9 +13,11 @@ class AIDApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.light(primary: Colors.amber)),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber)
+              .copyWith(primary: Colors.amber.shade500)),
       home: const Lifelines(),
     );
   }
@@ -42,13 +44,14 @@ class MenuState extends State<Lifelines> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      /// Navigation bar
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Colors.amber,
+        indicatorColor: theme.colorScheme.primary,
         selectedIndex: currentPageIndex,
         destinations: <Widget>[
           const NavigationDestination(
@@ -68,6 +71,7 @@ class MenuState extends State<Lifelines> {
         ],
       ),
       body: <Widget>[
+        /// SOS button
         Center(
           child: ButtonTheme(
               minWidth: 300.0,
@@ -87,6 +91,7 @@ class MenuState extends State<Lifelines> {
               )),
         ),
 
+        /// Google Maps
         MaterialApp(
           theme: ThemeData(
             useMaterial3: true,
@@ -99,44 +104,25 @@ class MenuState extends State<Lifelines> {
           )),
         ),
 
-        /// Messages page
+        /// Placeholder news
         ListView.builder(
-          reverse: true,
-          itemCount: 2,
+          reverse: false,
+          itemCount: 3,
           itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Text(
-                    'Hello',
-                    style: theme.textTheme.bodyLarge!
-                        .copyWith(color: theme.colorScheme.onPrimary),
-                  ),
-                ),
-              );
-            }
-            return Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  'Hi!',
-                  style: theme.textTheme.bodyLarge!
-                      .copyWith(color: theme.colorScheme.onPrimary),
-                ),
+            return ListTile(
+              leading: Icon(Icons.article), // Placeholder for news icon
+              title: Text(
+                'News Article ${index + 1}', // Example news title
+                style: theme.textTheme.bodyLarge,
               ),
+              subtitle: Text(
+                'Please evacuate now.',
+                style: theme.textTheme.bodySmall,
+              ),
+              onTap: () {
+                // Handle news article tap, could navigate to a detailed page.
+                print('Tapped on entry ${index + 1}');
+              },
             );
           },
         ),
