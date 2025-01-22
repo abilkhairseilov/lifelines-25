@@ -36,3 +36,4 @@ flutter run -v
 Credits go to:
 - Flutter, for providing information and code snippets for widgets within the app through a neat documentation interface.
 - Google, for Google Maps
+- My buddy Chat Gippity, for providing a snippet solution for a problem i've faced for days
