@@ -1,3 +1,5 @@
+/// this file is based on the navigation bar examples from the Flutter documentation
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -16,7 +18,7 @@ class AIDApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber)
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber) /// .copyWith extension provided by AI
               .copyWith(primary: Colors.amber.shade500)),
       home: const Lifelines(),
     );
@@ -34,7 +36,7 @@ class MenuState extends State<Lifelines> {
   int currentPageIndex = 0;
   late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(31.5017, 34.4668);
+  final LatLng _center = const LatLng(31.5017, 34.4668); /// google map solution provided by Google Maps API
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -81,7 +83,7 @@ class MenuState extends State<Lifelines> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     shape: CircleBorder(),
-                    padding: EdgeInsets.all(80)),
+                    padding: EdgeInsets.all(80)), // Brought from stackoverflow
                 child: const Text(
                   "SOS",
                   style: TextStyle(
@@ -100,14 +102,15 @@ class MenuState extends State<Lifelines> {
           home: Scaffold(
               body: GoogleMap(
             onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),
+            initialCameraPosition: CameraPosition(target: _center, zoom: 11.0), // provided by Google Maps API
           )),
         ),
 
         /// Placeholder news
+        // Based off the "notifications page" from the navigation bar example
         ListView.builder(
           reverse: false,
-          itemCount: 3,
+          itemCount: 3, // Placeholder stuff, could be dynamic soon
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               leading: Icon(Icons.article), // Placeholder for news icon
