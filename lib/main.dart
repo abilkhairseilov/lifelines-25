@@ -108,6 +108,7 @@ class MenuState extends State<Lifelines> {
 
         /// Placeholder news
         // Based off the "notifications page" from the navigation bar example
+        // and help from AI
         ListView.builder(
           reverse: false,
           itemCount: 3, // Placeholder stuff, could be dynamic soon
